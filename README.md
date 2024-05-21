@@ -6,11 +6,12 @@ This is simple project of fetching data from [Open Library](https://openlibrary.
 
 This project is built with the following technologies:
 
-- **[React](https://reactjs.org/)** - A JavaScript library for building user interfaces.
-- **[TypeScript](https://www.typescriptlang.org/)** - A superset of JavaScript that adds static typing.
-- **[Tailwind CSS](https://tailwindcss.com/)** - A utility-first CSS framework for rapid UI development.
-- **[React Router](https://reactrouter.com/)** - A collection of navigational components for React.
-- **[Vite](https://vitejs.dev/)** - A build tool that provides a faster and leaner development experience for modern web projects.
+- **[React](https://reactjs.org/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[Tailwind CSS](https://tailwindcss.com/)**
+- **[React Router](https://reactrouter.com/)**
+- **[Vite](https://vitejs.dev/)**
+- **[MaterialUI](https://mui.com/material-ui/)**
 
 ## License
 
