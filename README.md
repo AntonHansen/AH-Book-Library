@@ -12,6 +12,7 @@ This project is built with the following technologies:
 - **[React Router](https://reactrouter.com/)**
 - **[Vite](https://vitejs.dev/)**
 - **[MaterialUI](https://mui.com/material-ui/)**
+- **[Axios](https://axios-http.com/)**
 
 ## License
 
