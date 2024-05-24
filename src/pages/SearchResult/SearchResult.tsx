@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { useGlobalContext } from '../../context';
 import Book from '../../components/Book/Book';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -6,8 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const SearchResult = () => {
 	const { books, addToFavorites, addToDoneRead } = useGlobalContext();
-	// const [isFavorite, setIsFavorite] = useState(false);
-	const searchResultsBooks = books.slice(0, 10).map((singleBook) => {
+	const searchResultsBooks = books.map((singleBook) => {
 		return {
 			...singleBook,
 			id: singleBook.id.replace('/works/', ''),
@@ -18,7 +16,7 @@ const SearchResult = () => {
 	});
 
 	return (
-		<section className="searchresult">
+		<section className="searchresult flex justify-center items-center">
 			<div className="container">
 				<div className="section-title"></div>
 				<div className="searchresult-content grid">

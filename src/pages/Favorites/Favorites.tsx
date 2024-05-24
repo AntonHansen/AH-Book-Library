@@ -5,7 +5,7 @@ const Favorites = () => {
 	const { favorites, removeFromFavorites } = useGlobalContext();
 
 	return (
-		<section className="favorite-books">
+		<section className="favorite-books flex justify-center items-center">
 			<div className="container">
 				<div className="flex justify-center items-center">
 					<h2 className="font-bold tracking-wide">Favorite Books</h2>

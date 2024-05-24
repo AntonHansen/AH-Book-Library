@@ -14,26 +14,12 @@ const Navbar = () => {
 				<div>
 					<ul className="flex flex-col lg:flex-row items-center">
 						<li className="mb-6 lg:mb-0 lg:ml-7">
-							<Link
-								to="home"
-								className="capitalize text-lg font-semibold hover:shadow-md"
-							>
-								Home
-							</Link>
-						</li>
-						<li className="mb-6 lg:mb-0 lg:ml-7">
-							<Link
-								to="favorites"
-								className="capitalize text-lg font-semibold hover:shadow-md"
-							>
+							<Link to="favorites" className="capitalize text-lg font-semibold">
 								Favorites
 							</Link>
 						</li>
 						<li className="mb-6 lg:mb-0 lg:ml-7">
-							<Link
-								to="doneRead"
-								className="capitalize text-lg font-semibold hover:shadow-md"
-							>
+							<Link to="doneRead" className="capitalize text-lg font-semibold">
 								My Read Books
 							</Link>
 						</li>

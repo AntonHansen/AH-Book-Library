@@ -1,10 +1,5 @@
-import React, {
-	useState,
-	useContext,
-	useEffect,
-	useCallback,
-	// useReducer,
-} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import useFetch from './hooks/useFetch';
 
 const URL = 'http://openlibrary.org/search.json?title=';
 
@@ -14,6 +9,7 @@ interface Book {
 	cover_id: number | undefined;
 	title: string;
 	review?: string;
+	rating?: number;
 }
 
 interface AppContextType {
@@ -26,12 +22,13 @@ interface AppContextType {
 	addToDoneRead: (book: Book) => void;
 	removeFromDoneRead: (id: string) => void;
 	addReview: (id: string, review: string) => void;
+	addRating: (id: string, rating: number) => void;
 }
 
 const AppContext = React.createContext<AppContextType | undefined>(undefined);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
-	const [searchInput, setSearchInput] = useState('');
+	const [searchInput, setSearchInput] = useState<string>('');
 	const [books, setBooks] = useState<Book[]>([]);
 	const [favorites, setFavorites] = useState<Book[]>(() => {
 		const savedFavorites = localStorage.getItem('favorites');
@@ -42,36 +39,27 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		return savedDoneRead ? JSON.parse(savedDoneRead) : [];
 	});
 
-	const fetchBooks = useCallback(async () => {
-		try {
-			const response = await fetch(`${URL}${searchInput}`);
-			const data = await response.json();
-			const { docs } = data;
-
-			if (docs) {
-				const newBooks = docs.slice(0, 20).map((bookSingle: any) => {
-					const { key, author_name, cover_i, title } = bookSingle;
-
-					return {
-						id: key,
-						author: author_name,
-						cover_id: cover_i,
-						title: title,
-					};
-				});
-
-				setBooks(newBooks);
-			} else {
-				setBooks([]);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}, [searchInput]);
+	const { data, error } = useFetch(`${URL}${searchInput}`);
 
 	useEffect(() => {
-		fetchBooks();
-	}, [searchInput, fetchBooks]);
+		if (data) {
+			const { docs } = data;
+			const newBooks = docs.slice(0, 10).map((bookSingle: any) => {
+				const { key, author_name, cover_i, title } = bookSingle;
+				return {
+					id: key,
+					author: author_name,
+					cover_id: cover_i,
+					title: title,
+				};
+			});
+			console.log(newBooks);
+			setBooks(newBooks);
+		} else if (error) {
+			console.log(error);
+		}
+	}, [data, error]);
+
 	const addToFavorites = (book: Book) => {
 		const updatedFavorites = [...favorites, book];
 		setFavorites(updatedFavorites);
@@ -107,6 +95,17 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		localStorage.setItem('doneRead', JSON.stringify(updatedDoneRead));
 	};
 
+	const addRating = (id: string, rating: number) => {
+		const updatedDoneRead = doneRead.map((book) => {
+			if (book.id === id) {
+				return { ...book, rating };
+			}
+			return book;
+		});
+		setDoneRead(updatedDoneRead);
+		localStorage.setItem('doneRead', JSON.stringify(updatedDoneRead));
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -119,6 +118,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 				addToDoneRead,
 				removeFromDoneRead,
 				addReview,
+				addRating,
 			}}
 		>
 			{children}

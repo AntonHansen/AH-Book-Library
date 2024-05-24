@@ -1,10 +1,12 @@
-import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 
 const App = () => {
 	return (
 		<main>
-			<Header />
+			<header className="w-full">
+				<Navbar />
+			</header>
 			<Outlet />
 		</main>
 	);
